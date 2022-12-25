@@ -15,11 +15,11 @@ if fn.empty(fn.glob(install_path)) > 0 then
 	vim.cmd([[packadd packer.nvim]])
 end
 --nice
--- Autocommand that reloads neovim whenever you save the plugins.lua file
+-- Autocommand that reloads neovim whenever you save the useins.lua file
 vim.cmd([[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+    autocmd BufWritePost useins.lua source <afile> | PackerSync
   augroup end
 ]])
 
@@ -38,10 +38,10 @@ packer.init({
 	},
 })
 
--- Install your plugins here
+-- Install your useins here
 return packer.startup(function(use)
   use { "wbthomason/packer.nvim", commit = "6afb67460283f0e990d35d229fd38fdc04063e0a" } -- Have packer manage itself
-  use { "nvim-lua/plenary.nvim", commit = "4b7e52044bbb84242158d977a50c4cbcd85070c7" } -- Useful lua functions used by lots of plugins
+  use { "nvim-lua/plenary.nvim", commit = "4b7e52044bbb84242158d977a50c4cbcd85070c7" } -- Useful lua functions used by lots of useins
   use { "windwp/nvim-autopairs", commit = "4fc96c8f3df89b6d23e5092d31c866c53a346347" } -- Autopairs, integrates with both cmp and treesitter
   use { "numToStr/Comment.nvim", commit = "97a188a98b5a3a6f9b1b850799ac078faa17ab67" }
   use { "JoosepAlviste/nvim-ts-context-commentstring", commit = "4d3a68c41a53add8804f471fcc49bb398fe8de08" }
@@ -67,7 +67,9 @@ return packer.startup(function(use)
     requires = { 'kyazdani42/nvim-web-devicons' }
   }
 
- 
+--ufo 
+  use {'kevinhwang91/nvim-ufo', requires = 'kevinhwang91/promise-async'}
+ --for autocmd
   use {
   'gelguy/wilder.nvim',
   config = function()
@@ -75,7 +77,17 @@ return packer.startup(function(use)
     end,
   }
 
-  --image plugin
+  --snippet
+  --" ES2015 code snippets (Optional)
+use({'epilande/vim-es2015-snippets'})
+
+--" React code snippets
+use({'epilande/vim-react-snippets'})
+
+--" Ultisnips
+use({'SirVer/ultisnips'})
+
+  --image usein
    use({
 		"edluffy/hologram.nvim",
 		config = function()
@@ -106,7 +118,7 @@ return packer.startup(function(use)
 	})
 
  	-- Cmp 
-  use { "hrsh7th/nvim-cmp", commit = "b0dff0ec4f2748626aae13f011d1a47071fe9abc" } -- The completion plugin
+  use { "hrsh7th/nvim-cmp", commit = "b0dff0ec4f2748626aae13f011d1a47071fe9abc" } -- The completion usein
   use { "hrsh7th/cmp-buffer", commit = "3022dbc9166796b644a841a02de8dd1cc1d311fa" } -- buffer completions
   use { "hrsh7th/cmp-path", commit = "447c87cdd6e6d6a1d2488b1d43108bfa217f56e1" } -- path completions
 	use { "saadparwaiz1/cmp_luasnip", commit = "a9de941bcbda508d0a45d28ae366bb3f08db2e36" } -- snippet completions
@@ -137,7 +149,7 @@ return packer.startup(function(use)
 	use { "lewis6991/gitsigns.nvim", commit = "2c6f96dda47e55fa07052ce2e2141e8367cbaaf2" }
 
 	-- Automatically set up your configuration after cloning packer.nvim
-	-- Put this at the end after all plugins
+	-- Put this at the end after all useins
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
 	end
